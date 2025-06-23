@@ -66,7 +66,7 @@ p {
     display: none;
     position: absolute;
     width: 300px;
-    max-height: 200px;
+    max-height: 300px; /* Increased height to accommodate markdown content */
     overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -81,6 +81,86 @@ p {
 .popup-content {
     margin-bottom: 10px;
     white-space: pre-line;
+    line-height: 1.5;
+}
+
+/* Styles for markdown elements */
+.popup-content h1, 
+.popup-content h2, 
+.popup-content h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.popup-content h1 {
+    font-size: 1.3em;
+}
+
+.popup-content h2 {
+    font-size: 1.2em;
+}
+
+.popup-content h3 {
+    font-size: 1.1em;
+}
+
+.popup-content p {
+    margin-bottom: 10px;
+}
+
+.popup-content ul, 
+.popup-content ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.popup-content code {
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.popup-content pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 3px;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.popup-content blockquote {
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.popup-content a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.popup-content a:hover {
+    text-decoration: underline;
+}
+
+.popup-content table {
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.popup-content th,
+.popup-content td {
+    border: 1px solid #ddd;
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.popup-content th {
+    background-color: #f0f0f0;
 }
 
 .close-popup {

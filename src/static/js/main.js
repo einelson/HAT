@@ -46,6 +46,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to make API requests
     function callPythonFunction(endpoint, text) {
+        // Add spinner styles if not already present
+        if (!document.getElementById('spinner-styles')) {
+            const spinnerStyle = document.createElement('style');
+            spinnerStyle.id = 'spinner-styles';
+            spinnerStyle.textContent = `
+                .loading-spinner {
+                    width: 40px;
+                    height: 40px;
+                    margin: 20px auto;
+                    border: 4px solid rgba(0, 0, 0, 0.1);
+                    border-radius: 50%;
+                    border-top: 4px solid #3498db;
+                    animation: spin 1s linear infinite;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(spinnerStyle);
+        }
+        
+        // Show loading spinner before fetching
+        popup.querySelector('.popup-content').innerHTML = '<div class="loading-spinner"></div>';
+        popup.style.left = `${selectionCoords.x + 10}px`;
+        popup.style.top = `${selectionCoords.y - 10}px`;
+        popup.style.display = 'block';
+        
+        // Hide the menu immediately
+        customMenu.style.display = 'none';
+        
         fetch(`/api/${endpoint}`, {
             method: 'POST',
             headers: {
@@ -55,8 +87,35 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            // Display the result in the popup
-            popup.querySelector('.popup-content').textContent = data.result;
+            // Skip markdown processing and directly render HTML
+            
+            // Apply the response data directly as HTML
+            popup.querySelector('.popup-content').innerHTML = data.result;
+            popup.querySelector('.popup-content').classList.add('html-content');
+            
+            // Add CSS for better HTML content display
+            const style = document.createElement('style');
+            style.textContent = `
+                .html-content {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.4;
+                }
+                .html-content p { 
+                    margin: 0.5em 0; 
+                }
+                .html-content ul, .html-content ol { 
+                    margin: 0.5em 0; 
+                    padding-left: 2em; 
+                }
+                .html-content li { 
+                    margin: 0.2em 0; 
+                }
+                .html-content h1, .html-content h2, .html-content h3 {
+                    margin-top: 0.7em;
+                    margin-bottom: 0.5em;
+                }
+            `;
+            popup.querySelector('.popup-content').appendChild(style);
             
             // Position and show popup next to the selection
             popup.style.left = `${selectionCoords.x + 10}px`;
