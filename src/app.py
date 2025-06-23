@@ -142,7 +142,6 @@ def research_text():
     # Format the response with a title and query information
     formatted_html = f"""
     <div class="research-result">
-        <h2>Research: {text}</h2>
         <div class="research-content">
             {normalize_text(response)}
         </div>
