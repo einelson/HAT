@@ -72,7 +72,7 @@ def explain_text():
         model="gemini-2.5-flash",
         contents=EXPLAIN_TEXT.format(text=text)
     ).text
-    
+
     # Clean up the response text
     formatted_response = normalize_text(response)
     return jsonify({"result": formatted_response})
@@ -86,7 +86,7 @@ def summarize_text():
         model="gemini-2.5-flash",
         contents=SUMMARIZE_TEXT.format(text=text)
     ).text
-    
+
     # Clean up the response text
     formatted_response = normalize_text(response)
     return jsonify({"result": formatted_response})
@@ -100,15 +100,17 @@ def define_text():
         model="gemini-2.5-flash",
         contents=DEFINE_TEXT.format(text=text)
     ).text
-    return jsonify({"result": response})
+    
+    # Clean up the response text
+    formatted_response = normalize_text(response)
+    return jsonify({"result": formatted_response})
 
 
 @app.route('/api/research', methods=['POST'])
 def research_text():
     text = request.json.get('text', '')
-    # This is a placeholder for actual research logic
-    research = f"Research findings on '{text}'"
 
+    # Search for relevant results
     results = search(
         text,
         region="us",
@@ -128,13 +130,39 @@ def research_text():
                 'description': result.description,
                 'content': get_content(result.url),
             }
-        )
-
+        )    # Generate research content with AI
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=RESEARCH_TEXT.format(text=text, sources=json.dumps(sources, indent=2))
+        contents=RESEARCH_TEXT.format(
+            text=text,
+            sources=json.dumps(sources, indent=2)
+        )
     ).text
-    return jsonify({"result": response})
+
+    # Format the response with a title and query information
+    formatted_html = f"""
+    <div class="research-result">
+        <h2>Research: {text}</h2>
+        <div class="research-content">
+            {normalize_text(response)}
+        </div>
+        <div class="research-sources">
+            <h3>Scraped Sources</h3>
+            <ul>
+    """
+    # Add sources
+    for source in sources:
+        url = source["URL"]
+        title = source["title"]
+        formatted_html += f'<li><a href="{url}" target="_blank">{title}</a></li>'
+
+    formatted_html += """
+            </ul>
+        </div>
+    </div>
+    """
+
+    return jsonify({"result": formatted_html})
 
 
 if __name__ == '__main__':

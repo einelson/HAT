@@ -80,8 +80,40 @@ p {
 
 .popup-content {
     margin-bottom: 10px;
-    white-space: pre-line;
     line-height: 1.5;
+}
+
+.html-content {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+}
+
+.html-content p, 
+.popup-content p { 
+    margin: 0.5em 0; 
+}
+
+.html-content ul, 
+.html-content ol,
+.popup-content ul,
+.popup-content ol { 
+    margin: 0.5em 0; 
+    padding-left: 2em; 
+}
+
+.html-content li,
+.popup-content li { 
+    margin: 0.2em 0; 
+}
+
+.html-content h1, 
+.html-content h2, 
+.html-content h3,
+.popup-content h1, 
+.popup-content h2, 
+.popup-content h3 {
+    margin-top: 0.7em;
+    margin-bottom: 0.5em;
 }
 
 /* Styles for markdown elements */

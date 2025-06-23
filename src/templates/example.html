@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HAT - Example Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidepanel.css') }}">
     <!-- Add Marked.js for Markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -140,8 +140,27 @@
             <li><a href="#" id="action-define">Define</a></li>
             <li><a href="#" id="action-explain">Explain</a></li>
             <li><a href="#" id="action-summarize">Summarize</a></li>
-            <li><a href="#" id="action-research">Research</a></li>
-        </ul>
+            <li><a href="#" id="action-research">Research</a></li>        </ul>
+    </div>
+
+    <!-- Side Panel for Research Results -->
+    <div class="side-panel-container">
+        <div class="side-panel">
+            <div class="side-panel-header">
+                <h3 class="side-panel-title">Research</h3>
+                <div class="side-panel-controls">
+                    <button class="side-panel-minimize" title="Minimize">−</button>
+                    <button class="side-panel-close" title="Close">×</button>
+                </div>
+            </div>
+            <div class="research-tabs"></div>
+            <div class="side-panel-content"></div>
+        </div>
+    </div>
+
+    <!-- Minimized Side Panel Tabs -->
+    <div class="side-panel-minimized">
+        <div class="minimized-tabs"></div>
     </div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
