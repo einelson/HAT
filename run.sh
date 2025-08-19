@@ -1,0 +1,1 @@
+docker run -e GEMINI_API_KEY=<your_gemini_api_key> -p 5000:5000 einelson/hat-app:latest

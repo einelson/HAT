@@ -100,7 +100,7 @@ def define_text():
         model="gemini-2.5-flash",
         contents=DEFINE_TEXT.format(text=text)
     ).text
-    
+
     # Clean up the response text
     formatted_response = normalize_text(response)
     return jsonify({"result": formatted_response})
@@ -165,4 +165,4 @@ def research_text():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
